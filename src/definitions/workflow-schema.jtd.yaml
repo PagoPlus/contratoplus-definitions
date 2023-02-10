@@ -1,0 +1,90 @@
+---
+definitions:
+  smartString:
+    discriminator: kind
+    mapping:
+      static:
+        properties:
+          value: {type: string}
+      jq:
+        properties:
+          rule: {type: string}
+  smartNumber:
+    discriminator: kind
+    mapping:
+      static:
+        properties:
+          value: {type: float64}
+      jq:
+        properties:
+          rule: {type: string}
+  actionLink:
+    metadata:
+      description: >-
+        Action ID. Must map to a valid Action defined inside actions.
+    type: string
+properties:
+  trigger:
+    metadata:
+      enumDescription:
+        ON_INIT: >-
+          Executed when the Workflow is created. Only once, ever, for the life of the workflow.
+          Re-executed if the definition of the workflow is updated.
+        ON_START: >-
+          Executed on start of execution, before any other trigger runs.
+        ON_END: >-
+          Executed after all other triggers run.
+          Useful for clean-up routines.
+    enum:
+      - ON_INIT
+      - ON_START
+      - ON_END
+  start:
+    metadata:
+      description: >-
+        Initial step for the workflow. Must map to a valid Action defined inside actions.
+    ref: actionLink
+  actions:
+    metadata:
+      description: >-
+        Action definition..
+        The key is the Action ID, to reference it later from other actions.
+    values:
+      discriminator: kind
+      mapping:
+        sleep:
+          metadata:
+            description: Sleep for ms
+          properties:
+            ms: {ref: smartNumber}
+          optionalProperties:
+            success: {ref: actionLink}
+            error: {ref: actionLink}
+        fetch:
+          metadata:
+            description: Fetch data from a URL
+          properties:
+            url: {ref: smartString}
+          optionalProperties:
+            success: {ref: actionLink}
+            error: {ref: actionLink}
+            method:
+              metadata:
+                description: Method to use. Might be GET or POST.
+              enum:
+              - GET
+              - POST
+            result:
+              metadata:
+                description: What kind of response to get. Can be JSON or TEXT. Defaults to TEXT.
+              enum:
+              - TEXT
+              - JSON
+        log:
+          metadata:
+            description: Log a message
+          properties:
+            message: {ref: smartString}
+          optionalProperties:
+            success: {ref: actionLink}
+            error: {ref: actionLink}
