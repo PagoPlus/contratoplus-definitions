@@ -1,7 +1,8 @@
 {
   "name": "@contratoplus/definitions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
+  "module": "contratoplus-definitions",
   "private": false,
   "scripts": {
     "build": "npm-run-all --print-name build:*",
