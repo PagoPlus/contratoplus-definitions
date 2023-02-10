@@ -1,8 +1,8 @@
 {
   "name": "@contratoplus/definitions",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
-  "module": "contratoplus-definitions",
+  "main": "build/index.js",
   "private": false,
   "scripts": {
     "build": "npm-run-all --print-name build:*",
@@ -10,6 +10,7 @@
     "build:definitions": "jtd-codegen src/definitions/workflow-schema.jtd.json --typescript-out src/definitions/workflow-schema/",
     "build:ts": "tsc",
     "build:export-json": "cp src/definitions/workflow-schema.jtd.json build/workflow-schema.jtd.json",
+    "build:default-export": "echo '' > build/index.js",
     "prepublish": "npm run build",
     "watch-ts": "tsc --watch",
     "test": "jest"
