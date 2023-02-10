@@ -8,10 +8,14 @@
     "build:pre-builders": "./node_modules/.bin/jyt src/definitions/workflow-schema.jtd.yaml src/definitions/workflow-schema.jtd.json --origin yaml --target json --indent 2 --force",
     "build:definitions": "jtd-codegen src/definitions/workflow-schema.jtd.json --typescript-out src/definitions/workflow-schema/",
     "build:ts": "tsc",
+    "build:export-json": "cp src/definitions/workflow-schema.jtd.json build/workflow-schema.jtd.json",
     "prepublish": "npm run build",
     "watch-ts": "tsc --watch",
     "test": "jest"
   },
+  "files": [
+    "build"
+  ],
   "types": "build/index.d.ts",
   "keywords": [],
   "author": "Fernando Mumbach",
