@@ -2,6 +2,7 @@
   "name": "@contratoplus/definitions",
   "version": "0.0.0",
   "description": "",
+  "private": false,
   "scripts": {
     "build": "npm-run-all --print-name build:*",
     "build:pre-builders": "./node_modules/.bin/jyt src/definitions/workflow-schema.jtd.yaml src/definitions/workflow-schema.jtd.json --origin yaml --target json --indent 2 --force",
